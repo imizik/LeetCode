@@ -5,20 +5,18 @@
  */
 var topKFrequent = function(nums, k) {
     let hash = {}
-    
+    let bucket = new Array(k)
+    let result = []
     for (let num of nums) {
         hash[num] ? hash[num]++ : hash[num] = 1;
     }
     
-    let sorted = Object.entries(hash).sort((a,b) => {
-        return b[1] - a[1]
-    })
-    console.log(hash)
-    console.log(sorted)
-    let result = []
-    
-    for (let i = 0; i < k; i++) {
-        result.push(sorted[i][0])
+    for (let key in hash) {
+        bucket[hash[key]] = (bucket[hash[key]] || new Set()).add(key)
+    }
+    for (let i = bucket.length - 1; i >= 0; i--) {
+        if (bucket[i]) result.push(...bucket[i])
+        if (result.length === k) break;
     }
     return result
 };
