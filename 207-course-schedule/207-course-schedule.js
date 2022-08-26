@@ -4,27 +4,27 @@
  * @return {boolean}
  */
 var canFinish = function(numCourses, prerequisites) {
-  let hash = {}
-  for (let i = 0; i < numCourses; i++) {
-      hash[i] = []
-  }
-  for (let [course, preq] of prerequisites) {
-      hash[course].push(preq)
-  }
-    
+    let hash = {}
     let set = new Set();
     
-    const dfs = (course) => {
-        if (set.has(course)) return false
-        if (hash[course].length === 0) return true
+    for (let i = 0; i < numCourses; i++) {
+        hash[i] = []
+    }
+    
+    for (let [course, preq] of prerequisites) {
+        hash[course].push(preq)
+    }
+    
+    const dfs = (crs) => {
+        if (set.has(crs)) return false
+        if (hash[crs].length === 0) return true;
         
-        set.add(course)
-        
-        for (let adj of hash[course]) {
-            if (!dfs(adj)) return false
+        set.add(crs)
+        for (let c of hash[crs]) {
+            if (!dfs(c)) return false
         }
-        set.delete(course)
-        hash[course] = []
+        set.delete(crs)
+        hash[crs] = []
         return true
     }
     
