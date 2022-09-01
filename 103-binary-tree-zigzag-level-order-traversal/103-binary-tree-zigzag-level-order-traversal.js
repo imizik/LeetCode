@@ -18,14 +18,14 @@ var zigzagLevelOrder = function(root) {
         if (!node) return
         if (!result[order]) result.push([])
 
-        
+                dfs(node.left, order + 1);
+        dfs(node.right, order + 1);
         if (order % 2 === 0) {
             result[order].push(node.val)
         } else {
             result[order].unshift(node.val)
         }
-        dfs(node.left, order + 1);
-        dfs(node.right, order + 1);
+
     }
     
     dfs(root, 0)
