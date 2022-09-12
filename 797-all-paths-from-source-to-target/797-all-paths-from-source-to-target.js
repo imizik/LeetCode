@@ -10,9 +10,7 @@ var allPathsSourceTarget = function(graph) {
         if (node === graph.length - 1) {
             result.push([...arr, node])
         }
-        console.log(graph, node)
         for (let num of graph[node]) {
-            console.log(num, 'assa', arr, graph[node])
             dfs([...arr, node], num)
         }
     }
