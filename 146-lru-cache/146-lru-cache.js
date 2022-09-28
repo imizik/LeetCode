@@ -13,9 +13,10 @@ var LRUCache = function(capacity) {
 LRUCache.prototype.get = function(key) {
     let val = this.map.get(key)
     if (val === undefined) return -1
-    
+
     this.map.delete(key)
     this.map.set(key, val)
+
     return val
 };
 
@@ -25,13 +26,11 @@ LRUCache.prototype.get = function(key) {
  * @return {void}
  */
 LRUCache.prototype.put = function(key, value) {
-    this.map.delete(key)
+    if (this.map.get(key)) this.map.delete(key)
     this.map.set(key, value)
-    
     if (this.map.size > this.capacity) {
         this.map.delete(this.map.keys().next().value)
     }
-    
 };
 
 /** 
