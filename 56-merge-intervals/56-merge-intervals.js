@@ -7,13 +7,13 @@ var merge = function(intervals) {
     
     let result = [intervals[0]];
     
-    for (let [start, end] of intervals) {
-        let prev = result[result.length-1]
-        
-        if (start <= prev[1]) {
-            prev[1] = Math.max(end, prev[1])
+    for (let i = 1; i < intervals.length; i++) {
+        let period = intervals[i]
+        let last = result[result.length-1]
+        if (period[0] <= last[1]) {
+            last[1] = Math.max(period[1], last[1])
         } else {
-            result.push([start, end])
+            result.push(period)
         }
     }
     return result
