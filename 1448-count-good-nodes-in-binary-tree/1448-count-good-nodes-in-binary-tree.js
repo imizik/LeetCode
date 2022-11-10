@@ -10,20 +10,14 @@
  * @param {TreeNode} root
  * @return {number}
  */
-var goodNodes = function(root) {
-    let count = 0;
+var goodNodes = function(root, max = root.val) {
+    if (!root) return 0
+    let left = goodNodes(root.left, Math.max(max, root.val))
+    let right = goodNodes(root.right, Math.max(max, root.val))
     
-    let dfs = (node, min) => {
-        if (!node) return
-        
-        if (node.val >= min) count++
-        min = Math.max(min, node.val)
-        
-        dfs(node.left, min)
-        dfs(node.right, min)
-
+    if (root.val >= max) {
+        return left + right + 1
+    } else {
+        return left + right
     }
-    
-    dfs(root, root.val)
-    return count
 };
